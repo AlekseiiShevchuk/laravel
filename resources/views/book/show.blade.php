@@ -10,10 +10,11 @@
     <table class="table table-bordered">
         <tbody>
 
-            <tr><th>ID:</th><td>{{$book->id}}</td></tr>
-            <tr><th>Title</th><td>{{$book->title}}</td></tr>
-            <tr><th>Year</th><td>{{$book->year}}</td></tr>
-            <tr><th>Genre</th><td>{{$book->genre}}</td></tr>
+            <tr><th>Book ID:</th><td>{{$book->id}}</td></tr>
+            <tr><th>Book Title</th><td>{{$book->title}}</td></tr>
+            <tr><th>Book Author</th><td>{{$book->author}}</td></tr>
+            <tr><th>Year of publishing</th><td>{{$book->year}}</td></tr>
+            <tr><th>Genre of the Book</th><td>{{$book->genre}}</td></tr>
             <tr>
                 <th>User who has gotten the book:</th>
                 <td>

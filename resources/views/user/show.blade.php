@@ -21,13 +21,14 @@
                     @endif
                     <ul>
                         @foreach($user->books as $book)
-                            <li>{{$book->title}}</li>
+                            <li><a href="{{URL::to('books/' . $book->id)}}">{{$book->title}}</a></li>
                             @if($book)
                                 {!! Form::open(['url'=>'books/'. $book->id , 'class'=>'']) !!}
                                 {!! Form::hidden('_method', 'PATCH') !!}
                                 {!! Form::hidden('_action', 'giveback') !!}
                                 {!! Form::submit('Give back', ['class'=> 'btn-small btn-warning']) !!}
                                 {!! Form::close() !!}
+
                             @endif
                         @endforeach
                     </ul>

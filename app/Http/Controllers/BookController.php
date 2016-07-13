@@ -137,7 +137,7 @@ class BookController extends Controller
                 $book->user_id = $request->user_id;
                 $book->save();
                 Session::flash('message', 'Book with ID:' . $book->id . ' successfully updated');
-                return Redirect::to('books');
+                return Redirect::to('books/' . $id);
             }
         }
     }
