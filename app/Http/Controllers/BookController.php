@@ -32,7 +32,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('book/create');
     }
 
     /**
@@ -43,7 +43,32 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $rules = [
+            'title' => 'required',
+            'year' => 'required|digits:4',
+            'author' => 'required|alpha',
+            'user_id' => 'exists:users,id',
+            'genre' => 'required|alpha' //alpha - поле может содержать только буквы
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return Redirect::to('book/create')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $book = new Book;
+            $book->title = $request->title;
+            $book->year = $request->year;
+            $book->author = $request->author;
+            $book->genre = $request->genre;
+            $book->user_id = $request->user_id;
+            $book->save();
+            Session::flash('message', 'Book was successfully created');
+            return Redirect::to('books');
+        }
     }
 
     /**
@@ -85,7 +110,7 @@ class BookController extends Controller
             $book->user_id = null;
             $book->save();
             Session::flash('message', 'Book with ID:' .$book->id. ' has given back successfully');
-            return Redirect::to('books');
+            return back();//Redirect::to('books');
         }
 
         if($request['_action']=='edit'){

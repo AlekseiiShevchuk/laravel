@@ -24,7 +24,7 @@
          {!! Form::label('email', 'E-Mail') !!}
          {!! Form::text('email', Input::old('email'), ['class' => 'form-control']) !!}
       </div>
-    {!! Form::submit('Save User',['class' =>'btn btn-primary']) !!}
+    {!! Form::submit('Create User',['class' =>'btn btn-primary']) !!}
    {!! Form::close() !!}
 
 @stop

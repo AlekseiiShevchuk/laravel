@@ -14,10 +14,21 @@
             <tr><th>FirstName</th><td>{{$user->firstName}}</td></tr>
             <tr><th>LastName</th><td>{{$user->lastName}}</td></tr>
             <tr><th>E-Mail</th><td>{{$user->email}}</td></tr>
-            <tr><th>Books that the user has gotten:</th><td>
+            <tr><th>Books that the user has gotten:</th>
+                <td>
+                    @if(count($user->books) == 0)
+                        This user does not have any books
+                    @endif
                     <ul>
                         @foreach($user->books as $book)
                             <li>{{$book->title}}</li>
+                            @if($book)
+                                {!! Form::open(['url'=>'books/'. $book->id , 'class'=>'']) !!}
+                                {!! Form::hidden('_method', 'PATCH') !!}
+                                {!! Form::hidden('_action', 'giveback') !!}
+                                {!! Form::submit('Give back', ['class'=> 'btn-small btn-warning']) !!}
+                                {!! Form::close() !!}
+                            @endif
                         @endforeach
                     </ul>
                 </td></tr>
@@ -29,6 +40,9 @@
                     {!! Form::hidden('_method', 'DELETE') !!}
                     {!! Form::submit('Delete this User', ['class'=> 'btn btn-danger']) !!}
                     {!! Form::close() !!}
+
+
+
                 </td></tr>
 
 

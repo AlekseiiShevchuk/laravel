@@ -27,9 +27,20 @@
             <td>{{$user->lastName}}</td>
             <td>{{$user->email}}</td>
             <td>
+                @if(count($user->books) == 0)
+                    This user does not have any books
+                @endif
+
                 <ul>
             @foreach($user->books as $book)
                 <li>{{$book->title}}</li>
+
+                        {!! Form::open(['url'=>'books/'. $book->id , 'class'=>'']) !!}
+                        {!! Form::hidden('_method', 'PATCH') !!}
+                        {!! Form::hidden('_action', 'giveback') !!}
+                        {!! Form::submit('Give back', ['class'=> 'btn-small btn-warning']) !!}
+                        {!! Form::close() !!}
+
             @endforeach
                 </ul>
             </td>
