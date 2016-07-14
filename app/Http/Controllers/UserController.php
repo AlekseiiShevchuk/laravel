@@ -131,8 +131,9 @@ class UserController extends Controller
 
             if($request->addBook){
                 $book = Book::find($request->addBook);
-                $book->user_id = $id;
-                $book->save();
+                //$book->user_id = $id;
+                //$book->save();
+                $user->books()->save($book); //eloquent style binding
                 Session::flash('message', 'Book added successfully, user updated');
             }else{
                 Session::flash('message', 'Successfully updated user');
