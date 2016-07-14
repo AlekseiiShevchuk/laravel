@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\book;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -47,7 +48,7 @@ class UserController extends Controller
         $rules = [
             'firstName' => 'required|alpha', //alpha - поле может содержать только буквы
             'lastName' => 'required|alpha',
-            'email' => 'required|email|unique:users'
+            'email' => 'required|email|unique:users',
         ];
 
         $validator = Validator::make($request->all(),$rules);
@@ -105,7 +106,8 @@ class UserController extends Controller
         $user = User::find($id);
         $rules = [
             'firstName' => 'required|alpha', //alpha - поле может содержать только буквы
-            'lastName' => 'required|alpha'
+            'lastName' => 'required|alpha',
+            'addBook' => 'exists:books,id,user_id,NULL'
         ];
         // email необходимо валидировать тольков  том случае если он изменился относительно того что был в базе
         // иначе возникнет ошибка НЕуникальности email
@@ -127,9 +129,18 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->save();
 
-            Session::flash('message', 'Successfully updated user');
+            if($request->addBook){
+                $book = Book::find($request->addBook);
+                $book->user_id = $id;
+                $book->save();
+                Session::flash('message', 'Book added successfully, user updated');
+            }else{
+                Session::flash('message', 'Successfully updated user');
+            }
 
-            return Redirect::to('users');
+
+
+            return Redirect::to('users/'. $id);
         }
     }
 

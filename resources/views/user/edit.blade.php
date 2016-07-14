@@ -24,6 +24,11 @@
         {!! Form::label('email', 'E-Mail') !!}
         {!! Form::text('email', null, ['class' => 'form-control']) !!}
     </div>
+
+    <div class="form-group">
+        {!! Form::label('addBook', 'Type Book ID you want to give to user (the book must be free)') !!}
+        {!! Form::text('addBook', null, ['class' => 'form-control']) !!}
+    </div>
     {!! Form::submit('Update User',['class' =>'btn btn-primary']) !!}
     {!! Form::close() !!}
 
